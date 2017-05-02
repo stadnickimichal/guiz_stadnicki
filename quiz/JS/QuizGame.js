@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
         startFunctionEvent: function () {
             this.animateChange();
             setTimeout(function () {
-                this.questionStyle(true,0);
+                this.questionStyle(true);
                 this.ubdateText("<i>#"+date.QuestionNr[0]+"</i>",date.Question[0],date.Ansers[0]);
                 timer.clockOn();
             }.bind(this), 300);
@@ -128,10 +128,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 interface.singleAnserElements[i].removeEventListener('click', this.nextQuestionEventH);
                 interface.singleAnserElements[i].removeEventListener('click', this.checkCorrectness);}
         },
-        questionStyle: function(state, fsize){
+        questionStyle: function(state){
                 interface.ansersElement.style.display = (state)? "table":"none";
                 interface.buttonElement.style.display = (state)? "none":"table";
-                this.replaceClass(interface.questionElement,(state)?"questionDiv__question--questions":"questionDiv__question--end",(state)?"":"questionDiv__question--questions");
+                console.log((state)?"questionDiv__question--questions":"questionDiv__question--end");
+                console.log((state)?"":"questionDiv__question--questions");
+                this.replaceClass(interface.questionElement,(state)?"questionDiv__question--questions":"questionDiv__question--end",(state)?"questionDiv__question--end":"");
                 interface.headerElement.parentNode.style.textAlign = (state)? "left":"center";
                 interface.headerElement.parentNode.style.backgroundImage = (state)? "url('source/header_background_black.jpg')":"";
                 interface.headerElement.style.backgroundColor= (state)? "#ffffff":"";
@@ -153,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(function () {
                 this.replaceClass(interface.buttonElement, "questionDiv__button--next", "questionDiv__button--showAnsers");
                 interface.buttonElement.innerHTML="<strong>></strong>";
-                this.questionStyle(true,0);
+                this.questionStyle(true);
                 interface.buttonElement.style.display="table";
                 this.showScore(false);
                 date.CorrQNr=0;
