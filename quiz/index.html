@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>QUIZ</title>
@@ -20,11 +20,11 @@
     <main>
 <!-- Zegar -->
         <div class="clock">
-            <svg class="sg-icon"><use xlink:href="#icon-counter"></use></svg>
+            <svg class="clock__icon sg-icon"><use xlink:href="#icon-counter"></use></svg>
             <div class="clock__stripe"><div class="clock__stripe--app"></div></div>
         </div>
 <!-- Div z pytaniami -->
-        <div class="questionDiv"> 
+        <div class="questionDiv questionDiv--rotat180deg"> 
             <div class="questionDiv__main">
                 <div class="questionDiv__header questionDiv__header--normal sg-text-bit sg-text-bit--not-responsive sg-text-bit--xlarge sg-text-bit--light">
                     <span class="questionDiv__headerText"></span>
@@ -49,18 +49,18 @@
             </div>
             <table class="questionDiv__ansers">
                 <tr class="questionDiv__ansersRow">
-                    <td class="questionDiv__singleAnser questionDiv__anserText--first">
+                    <td class="questionDiv__singleAnser questionDiv__anserText--first questionDiv__singleAnser--hover">
                         <p class="questionDiv__anserText sg-text sg-text--small">Nie godzi się takiego i nazywać lub hrabią</p>
                     </td>
-                    <td class="questionDiv__singleAnser questionDiv__anserText--second">
+                    <td class="questionDiv__singleAnser questionDiv__anserText--second questionDiv__singleAnser--hover">
                         <p class="questionDiv__anserText sg-text sg-text--small">"Palna, lepka ciecz o specyficznym zapachu i barwie od jasno do ciemnobrązowej</p>
                     </td>
                 </tr>
                 <tr class="questionDiv__ansersRow">
-                    <td class="questionDiv__singleAnser questionDiv__anserText--third">
+                    <td class="questionDiv__singleAnser questionDiv__anserText--third questionDiv__singleAnser--hover">
                         <p class="questionDiv__anserText sg-text sg-text--small">asdadadasdasdasdasd</p>
                     </td>
-                    <td class="questionDiv__singleAnser questionDiv__anserText--last">
+                    <td class="questionDiv__singleAnser questionDiv__anserText--last questionDiv__singleAnser--hover">
                         <p class="questionDiv__anserText sg-text sg-text--small">asdsdasdasdasdasdasd</p>
                     </td>
                 </tr>

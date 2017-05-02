@@ -44,7 +44,11 @@ main{
     background-color: #ffffff;
     border-radius: 10px;
 }
-.sg-icon{
+.clock__stripe--clockOn{
+    width : 24px;
+    background-color: #ff796b;
+}
+.clock__icon{
     float: left;
     fill: #434e66;
     display: none;
@@ -53,7 +57,19 @@ main{
     background-color: #57b2f8;
     color: #ffffff;
     padding: 30px;
+    transition: transform 0.3s;
+    -webkit-Transition: -webkit-transform 0.3s;
     box-shadow: 10px 10px 5px #888888;
+}
+.questionDiv--rotat90deg{
+    -ms-transform:scaleX(0); /* IE 9 */
+    -webkit-transform:scaleX(0); /* Safari */
+    transform:scaleX(0);
+}
+.questionDiv--rotat180deg{
+    -ms-transform:scaleX(1); /* IE 9 */
+    -webkit-transform:scaleX(1); /* Safari */
+    transform:scaleX(1);
 }
 .questionDiv__main{
     border-radius: 15px;
@@ -62,8 +78,6 @@ main{
     overflow: auto;
 }
 .questionDiv__header{
-    /*line-height: 58px; lepiej wyglada bialy pasek*/
-    /*text-align: center;*/
     background-size: cover;
     margin-bottom: 4%;
 }
@@ -101,6 +115,9 @@ main{
     border: none;
     border-radius: 10px;
 }
+.questionDiv__button:hover{
+    background-color: #fec83c;
+}
 .questionDiv__button--start{
     width: 50%;
     height: 80px;
@@ -130,6 +147,9 @@ main{
     border-radius: 0;
     text-align: center;
     padding: 5px;
+}
+.questionDiv__singleAnser--hover:hover {
+    background-color: #fec83c;
 }
 .questionDiv__anserText--first{
     border-right: 5px solid #57b2f8;
