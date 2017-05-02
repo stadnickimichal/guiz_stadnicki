@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QUIZ</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://styleguide.brainly.com/77.2.0/style-guide.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="main/main.css">
+</head>
+<body>
+    <nav class="nav sg-text-bit sg-text-bit--not-responsive sg-text-bit--light sg-hide-for-small-only">
+        <div class="nav__logo sg-logo">
+            <img class="sg-logo__image" src="https://styleguide.brainly.com/images/logos/brainly-761d75d6ea.svg">
+        </div>
+        <!--<div class="nav__text">-->
+            <span>DARMOWY TEST IQ</span>
+            <svg class="nav__icon sg-subject-icon sg-hide-for-medium-down"><use xlink:href="#icon-subject-science"></use></svg>
+        <!--<</div>-->
+    </nav>
+    <main>
+<!-- Zegar -->
+        <div class="clock">
+            <svg class="sg-icon"><use xlink:href="#icon-counter"></use></svg>
+            <div class="clock__stripe"><div class="clock__stripe--app"></div></div>
+        </div>
+<!-- Div z pytaniami -->
+        <div class="questionDiv"> 
+            <div class="questionDiv__main">
+                <div class="questionDiv__header questionDiv__header--normal sg-text-bit sg-text-bit--not-responsive sg-text-bit--xlarge sg-text-bit--light">
+                    <span class="questionDiv__headerText"></span>
+                </div>
+                <div class="questionDiv__question sg-text sg-text--light"></div>
+                <div class="questionDiv__score questionDiv__score--first">
+                    <div class="questionDiv__piontsTittle">
+                        PUNKTY:
+                    </div>
+                    <div class="questionDiv__piontsNo questionDiv__piontsNo--borderRight">
+                        0
+                    </div>
+                </div>
+                <div class="questionDiv__score">
+                    <div class="questionDiv__piontsTittle">
+                        Czas:
+                    </div>
+                    <div class="questionDiv__piontsNo questionDiv__piontsNo--borderLeft">
+                        0
+                    </div>
+                </div>
+            </div>
+            <table class="questionDiv__ansers">
+                <tr class="questionDiv__ansersRow">
+                    <td class="questionDiv__singleAnser questionDiv__anserText--first">
+                        <p class="questionDiv__anserText sg-text sg-text--small">Nie godzi się takiego i nazywać lub hrabią</p>
+                    </td>
+                    <td class="questionDiv__singleAnser questionDiv__anserText--second">
+                        <p class="questionDiv__anserText sg-text sg-text--small">"Palna, lepka ciecz o specyficznym zapachu i barwie od jasno do ciemnobrązowej</p>
+                    </td>
+                </tr>
+                <tr class="questionDiv__ansersRow">
+                    <td class="questionDiv__singleAnser questionDiv__anserText--third">
+                        <p class="questionDiv__anserText sg-text sg-text--small">asdadadasdasdasdasd</p>
+                    </td>
+                    <td class="questionDiv__singleAnser questionDiv__anserText--last">
+                        <p class="questionDiv__anserText sg-text sg-text--small">asdsdasdasdasdasdasd</p>
+                    </td>
+                </tr>
+            </table>
+            <button class="questionDiv__button questionDiv__button--start"><strong>TAK!</strong></button>
+        </div>
+    </main>
+    
+    <!-- SKRYPTY JS -->
+    <script type="text/javascript" src="JS/QuizGame.js" charset="utf-8"></script>
+    <script src="https://styleguide.brainly.com/images/icons-5459066133.js"></script>
+    <script src="https://styleguide.brainly.com/images/subjects-icons-a297b895eb.js"></script>
+    <script type="application/json" src="https://cdn.rawgit.com/kdzwinel/cd08d08002995675f10d065985257416/raw/f681999d414a85f081c52424605151cc8f93313d/quiz-data.json"></script>
+</body>
+</html>
