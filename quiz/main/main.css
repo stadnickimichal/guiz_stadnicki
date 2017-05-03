@@ -1,5 +1,4 @@
 body{
-    /*background-color: #ffffff;*/
     background-image: url('../source/zeszyt_w_linie.png');
     background-size: cover;
 }
@@ -87,9 +86,12 @@ main{
 .questionDiv__score{
     float: left;
     width: 17%;
-    margin-left: 22%;
+    margin-left: 10%;
     margin-top: 20px;
     display: none;
+}
+.questionDiv__score--first{
+    margin-left: 29%;
 }
 .questionDiv__piontsTittle{
     background-color: #ffde8c;
