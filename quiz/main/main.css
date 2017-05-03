@@ -14,7 +14,7 @@ main{
     line-height: 80px;
     text-align: center;
     box-shadow: 0px 10px 5px #888888;
-    padding: 0px 5%;
+    padding: 0px 15%;
 }
 .nav__logo{
     float: left;
@@ -43,10 +43,6 @@ main{
     height: 18px;
     background-color: #ffffff;
     border-radius: 10px;
-}
-.clock__stripe--clockOn{
-    width : 24px;
-    background-color: #ff796b;
 }
 .clock__icon{
     float: left;
@@ -129,10 +125,17 @@ main{
     font-size: 25px;
 }
 .questionDiv__button--next{
+    margin-right: 36%;
+    margin-left: 10px;
     width: 50px;
     height: 50px;
     font-size: 30px;
     margin-top: 30px;
+}
+.questionDiv__button--prev{
+    margin-left: 38%;
+    margin-right: 10px;
+   display: none; 
 }
 .questionDiv__ansers{
     width: 100%;
@@ -191,11 +194,11 @@ main{
 }
 }
 @media only screen and (max-width:480px){
-.questionDiv{
-    padding: 20px 2px;
-}
 main{
     width: 100%;
+}
+.questionDiv{
+    padding: 20px 2px;
 }
 .clock{
     width: 100%;
@@ -207,6 +210,19 @@ main{
 }
 .questionDiv__button{
     width: 100%;
+}
+.questionDiv__button--next{
+    padding: 0;
+    width: 49.5%;
+    margin: 30px 0 0 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+.questionDiv__button--prev{
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
 }
 .questionDiv__score{
     width: 30%;
@@ -224,4 +240,8 @@ main{
     margin-left: 20%;
     border-right: 2px solid #57b2f8;
 }
+}
+.clock__stripe--clockOn{/*musi byc tutaj zeby width nie zostalo nadpisana przez style media queri*/
+    width : 24px;
+    background-color: #ff796b;
 }

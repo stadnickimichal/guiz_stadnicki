@@ -1,8 +1,9 @@
-document.addEventListener("DOMContentLoaded", function () {
+ï»¿document.addEventListener("DOMContentLoaded", function () {
     var interface = {
         qMainElement: document.getElementsByClassName("questionDiv__main")[0],
         headerElement: document.getElementsByClassName("questionDiv__headerText")[0],
-        buttonElement: document.getElementsByTagName("button")[0],
+        buttonElement: document.getElementsByClassName("questionDiv__button")[1],
+        buttonElementPrev: document.getElementsByClassName("questionDiv__button")[0],
         divElement: document.getElementsByClassName("questionDiv")[0],
         questionElement: document.getElementsByClassName("questionDiv__question")[0],
         ansersElement: document.getElementsByClassName("questionDiv__ansers")[0],
@@ -36,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         that.time = that.jsonObectArr.time_seconds;
                     }
                     timer.GetTime(that.time);
-                    Game.ubdateText("Witamy w Quiz","Czy chcesz Wylosowaæ swoje pytania i rozpocz¹c test ? Bêdziesz mia³ "+
-                            that.time+"s ¿eby odpowiedzieæ na "+that.Question.length+" pytañ.",0);
+                    Game.ubdateText("Witamy w Quiz","Czy chcesz WylosowaÄ‡ swoje pytania i rozpoczÄ…c test ? BÄ™dziesz miaÅ‚ "+
+                            that.time+"s Å¼eby odpowiedzieÄ‡ na "+that.Question.length+" pytaÅ„.",0);
                 }
             };
             this.xobj.open("GET", 'https://cdn.rawgit.com/kdzwinel/cd08d08002995675f10d065985257416/raw/f681999d414a85f081c52424605151cc8f93313d/quiz-data.json', true);
@@ -76,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
             //this.replaceClass(interface.buttonElement, "questionDiv__button--showAnsers", "questionDiv__button--next");
             interface.buttonElement.innerHTML="<strong>Sprawdz Test</strong>";
             this.showScore(true);
-            this.ubdateText("KONIEC TESTU","<p class='sg-text sg-text--light'>Twój wynik to :</p>",0);
+            this.ubdateText("KONIEC TESTU","<p class='sg-text sg-text--light'>TwÃ³j wynik to :</p>",0);
             this.unbindEvents();
             date.CorrQNr=-1;
         },
@@ -92,19 +93,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 this.replaceClass(interface.buttonElement, "questionDiv__button--next", "questionDiv__button--showAnsers");
                 this.questionStyle(true);
                 interface.buttonElement.innerHTML="<strong>></strong>";
-                interface.buttonElement.style.display="table";
+                interface.buttonElement.style.display="inline";
+                interface.buttonElementPrev.style.display="inline";
                 this.showScore(false);
                 interface.buttonElement.removeEventListener('click', this.ShowAnsersH);
             }.bind(this), 300);
         },
-        next: function(){
-            date.CorrQNr++;
-            if (date.CorrQNr < 9){
+        nextPrev: function(state){
+            (state)?date.CorrQNr++:date.CorrQNr--;
+            if ((date.CorrQNr < 9)&&(date.CorrQNr>=0)){
                 this.markAnswers("on");
                 this.ubdateText("<i>#"+date.QuestionNr[date.CorrQNr]+"</i>",date.Question[date.CorrQNr],date.Ansers[date.CorrQNr]);}
+            else if(date.CorrQNr<0){
+                date.CorrQNr++;}
             else{
                 this.FinishEvent();
-                interface.buttonElement.style.display="none";}
+                interface.buttonElement.style.display="none";
+		interface.buttonElementPrev.style.display="none";}
         },
         checkCorrectness: function () {
             if (date.Ansers[date.CorrQNr][this.index].correct)
@@ -171,7 +176,8 @@ document.addEventListener("DOMContentLoaded", function () {
             interface.buttonElement.removeEventListener('click', this.startFunctionEventH);
             this.ShowAnsersH=this.ShowAnsers.bind(this);
             interface.buttonElement.addEventListener('click', this.ShowAnsersH);
-            interface.buttonElement.addEventListener('click', this.next.bind(this));
+            interface.buttonElement.addEventListener('click', function(){this.nextPrev(true);}.bind(this));
+            interface.buttonElementPrev.addEventListener('click', function(){this.nextPrev(false);}.bind(this));
             for (i = 0; i < 4; i++) {
                 interface.singleAnserElements[i].removeEventListener('click', this.nextQuestionEventH);
                 interface.singleAnserElements[i].removeEventListener('click', this.checkCorrectness);}
