@@ -86,12 +86,12 @@ main{
 .questionDiv__score{
     float: left;
     width: 17%;
-    margin-left: 10%;
+    margin-left: 7%;
     margin-top: 20px;
     display: none;
 }
 .questionDiv__score--first{
-    margin-left: 29%;
+    margin-left: 30%;
 }
 .questionDiv__piontsTittle{
     background-color: #ffde8c;

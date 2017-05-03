@@ -8,14 +8,13 @@
     <link rel="stylesheet" type="text/css" href="main/main.css">
 </head>
 <body>
+<!-- Pasek gorny -->
     <nav class="nav sg-text-bit sg-text-bit--not-responsive sg-text-bit--light sg-hide-for-small-only">
         <div class="nav__logo sg-logo">
-            <img class="sg-logo__image" src="https://styleguide.brainly.com/images/logos/brainly-761d75d6ea.svg">
+            <a href="https://brainly.co/"><img class="sg-logo__image" src="https://styleguide.brainly.com/images/logos/brainly-761d75d6ea.svg"></a>
         </div>
-        <!--<div class="nav__text">-->
             <span>DARMOWY TEST IQ</span>
-            <svg class="nav__icon sg-subject-icon sg-hide-for-medium-down"><use xlink:href="#icon-subject-science"></use></svg>
-        <!--<</div>-->
+            <a href="https://tofik92d.github.io/guiz_stadnicki/quiz/index.html"><svg class="nav__icon sg-subject-icon sg-hide-for-medium-down"><use xlink:href="#icon-subject-science"></use></svg></a>
     </nav>
     <main>
 <!-- Zegar -->
@@ -23,14 +22,14 @@
             <svg class="clock__icon sg-icon"><use xlink:href="#icon-counter"></use></svg>
             <div class="clock__stripe"><div class="clock__stripe--app"></div></div>
         </div>
-<!-- Div z pytaniami -->
+<!-- Glowny div -->
         <div class="questionDiv questionDiv--rotat180deg"> 
-            <div class="questionDiv__main">
+            <div class="questionDiv__main"><!-- Div z naglowkie i pytaniem -->
                 <div class="questionDiv__header questionDiv__header--normal sg-text-bit sg-text-bit--not-responsive sg-text-bit--xlarge sg-text-bit--light">
                     <span class="questionDiv__headerText"></span>
                 </div>
                 <div class="questionDiv__question sg-text sg-text--light"></div>
-                <div class="questionDiv__score questionDiv__score--first">
+                <div class="questionDiv__score questionDiv__score--first"><!-- pokazuje zdobyte punkty -->
                     <div class="questionDiv__piontsTittle">
                         PUNKTY:
                     </div>
@@ -38,7 +37,7 @@
                         0
                     </div>
                 </div>
-                <div class="questionDiv__score">
+                <div class="questionDiv__score"><!-- pokazuje czas gracza -->
                     <div class="questionDiv__piontsTittle">
                         Czas:
                     </div>
@@ -47,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <table class="questionDiv__ansers">
+            <table class="questionDiv__ansers"><!-- tabelka z pytaniami -->
                 <tr class="questionDiv__ansersRow">
                     <td class="questionDiv__singleAnser questionDiv__anserText--first questionDiv__singleAnser--hover">
                         <p class="questionDiv__anserText sg-text sg-text--small">Nie godzi się takiego i nazywać lub hrabią</p>
@@ -65,8 +64,8 @@
                     </td>
                 </tr>
             </table>
-            <button class="questionDiv__button questionDiv__button--prev questionDiv__button--next"><</button>
-            <button class="questionDiv__button questionDiv__button--start"><strong>TAK!</strong></button>
+            <button class="questionDiv__button questionDiv__button--prev questionDiv__button--next"><</button><!-- przycisk do cofania -->
+            <button class="questionDiv__button questionDiv__button--start"><strong>TAK!</strong></button><!-- Glowny przycisk -->
         </div>
     </main>
     
