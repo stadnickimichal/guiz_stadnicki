@@ -1,5 +1,4 @@
 body{
-    /*background-color: #ffffff;*/
     background-image: url('../source/zeszyt_w_linie.png');
     background-size: cover;
 }
@@ -14,7 +13,7 @@ main{
     line-height: 80px;
     text-align: center;
     box-shadow: 0px 10px 5px #888888;
-    padding: 0px 5%;
+    padding: 0px 15%;
 }
 .nav__logo{
     float: left;
@@ -44,7 +43,7 @@ main{
     background-color: #ffffff;
     border-radius: 10px;
 }
-.sg-icon{
+.clock__icon{
     float: left;
     fill: #434e66;
     display: none;
@@ -53,7 +52,19 @@ main{
     background-color: #57b2f8;
     color: #ffffff;
     padding: 30px;
+    transition: transform 0.3s;
+    -webkit-Transition: -webkit-transform 0.3s;
     box-shadow: 10px 10px 5px #888888;
+}
+.questionDiv--rotat90deg{
+    -ms-transform:scaleX(0); /* IE 9 */
+    -webkit-transform:scaleX(0); /* Safari */
+    transform:scaleX(0);
+}
+.questionDiv--rotat180deg{
+    -ms-transform:scaleX(1); /* IE 9 */
+    -webkit-transform:scaleX(1); /* Safari */
+    transform:scaleX(1);
 }
 .questionDiv__main{
     border-radius: 15px;
@@ -62,8 +73,6 @@ main{
     overflow: auto;
 }
 .questionDiv__header{
-    /*line-height: 58px; lepiej wyglada bialy pasek*/
-    /*text-align: center;*/
     background-size: cover;
     margin-bottom: 4%;
 }
@@ -77,9 +86,12 @@ main{
 .questionDiv__score{
     float: left;
     width: 17%;
-    margin-left: 22%;
+    margin-left: 7%;
     margin-top: 20px;
     display: none;
+}
+.questionDiv__score--first{
+    margin-left: 30%;
 }
 .questionDiv__piontsTittle{
     background-color: #ffde8c;
@@ -101,6 +113,9 @@ main{
     border: none;
     border-radius: 10px;
 }
+.questionDiv__button:hover{
+    background-color: #fec83c;
+}
 .questionDiv__button--start{
     width: 50%;
     height: 80px;
@@ -112,10 +127,17 @@ main{
     font-size: 25px;
 }
 .questionDiv__button--next{
+    margin-right: 36%;
+    margin-left: 10px;
     width: 50px;
     height: 50px;
     font-size: 30px;
     margin-top: 30px;
+}
+.questionDiv__button--prev{
+    margin-left: 38%;
+    margin-right: 10px;
+   display: none; 
 }
 .questionDiv__ansers{
     width: 100%;
@@ -130,6 +152,9 @@ main{
     border-radius: 0;
     text-align: center;
     padding: 5px;
+}
+.questionDiv__singleAnser--hover:hover {
+    background-color: #fec83c;
 }
 .questionDiv__anserText--first{
     border-right: 5px solid #57b2f8;
@@ -171,11 +196,11 @@ main{
 }
 }
 @media only screen and (max-width:480px){
-.questionDiv{
-    padding: 20px 2px;
-}
 main{
     width: 100%;
+}
+.questionDiv{
+    padding: 20px 2px;
 }
 .clock{
     width: 100%;
@@ -187,6 +212,19 @@ main{
 }
 .questionDiv__button{
     width: 100%;
+}
+.questionDiv__button--next{
+    padding: 0;
+    width: 49.5%;
+    margin: 30px 0 0 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+.questionDiv__button--prev{
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
 }
 .questionDiv__score{
     width: 30%;
@@ -204,4 +242,8 @@ main{
     margin-left: 20%;
     border-right: 2px solid #57b2f8;
 }
+}
+.clock__stripe--clockOn{/*musi byc tutaj zeby width nie zostalo nadpisana przez style media queri*/
+    width : 24px;
+    background-color: #ff796b;
 }

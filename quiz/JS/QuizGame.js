@@ -1,8 +1,9 @@
-document.addEventListener("DOMContentLoaded", function () {
+ï»¿document.addEventListener("DOMContentLoaded", function () {
     var interface = {
         qMainElement: document.getElementsByClassName("questionDiv__main")[0],
         headerElement: document.getElementsByClassName("questionDiv__headerText")[0],
-        buttonElement: document.getElementsByTagName("button")[0],
+        buttonElement: document.getElementsByClassName("questionDiv__button")[1],
+        buttonElementPrev: document.getElementsByClassName("questionDiv__button")[0],
         divElement: document.getElementsByClassName("questionDiv")[0],
         questionElement: document.getElementsByClassName("questionDiv__question")[0],
         ansersElement: document.getElementsByClassName("questionDiv__ansers")[0],
@@ -36,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         that.time = that.jsonObectArr.time_seconds;
                     }
                     timer.GetTime(that.time);
-                    Game.ubdateText("Witamy w Quiz","Czy chcesz Wylosowaæ swoje pytania i rozpocz¹c test ? Bêdziesz mia³ "+
-                            that.time+"s ¿eby odpowiedzieæ na "+that.Question.length+" pytañ.",0);
+                    Game.ubdateText("Witamy w Quiz","Czy chcesz WylosowaÄ‡ swoje pytania i rozpoczÄ…c test ? BÄ™dziesz miaÅ‚ "+
+                            that.time+"s Å¼eby odpowiedzieÄ‡ na "+that.Question.length+" pytaÅ„.",0);
                 }
             };
             this.xobj.open("GET", 'https://cdn.rawgit.com/kdzwinel/cd08d08002995675f10d065985257416/raw/f681999d414a85f081c52424605151cc8f93313d/quiz-data.json', true);
@@ -52,14 +53,14 @@ document.addEventListener("DOMContentLoaded", function () {
         startFunctionEvent: function () {
             this.animateChange();
             setTimeout(function () {
-                this.questionStyle(true,0);
+                this.questionStyle(true);
                 this.ubdateText("<i>#"+date.QuestionNr[0]+"</i>",date.Question[0],date.Ansers[0]);
                 timer.clockOn();
             }.bind(this), 300);
         },
         nextQuestionEvent: function () {
             this.markAnswers("on");
-            setTimeout(this.animateChange,300);
+            setTimeout(this.animateChange.bind(this),300);
             setTimeout(function () {
                 this.markAnswers("off");
                 date.CorrQNr++;
@@ -71,22 +72,53 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         FinishEvent: function () {
             timer.clockOff();
-            this.questionStyle(false,20);
+            this.questionStyle(false);
             this.replaceClass(interface.buttonElement, "questionDiv__button--showAnsers", "questionDiv__button--start");
+            //this.replaceClass(interface.buttonElement, "questionDiv__button--showAnsers", "questionDiv__button--next");
             interface.buttonElement.innerHTML="<strong>Sprawdz Test</strong>";
             this.showScore(true);
-            this.ubdateText("KONIEC TESTU","<p class='sg-text sg-text--light'>Twój wynik to :</p>",0);
+            this.ubdateText("KONIEC TESTU","<p class='sg-text sg-text--light'>TwÃ³j wynik to :</p>",0);
             this.unbindEvents();
+            date.CorrQNr=-1;
+        },
+        showScore: function(state){
+            interface.scoreTable[0].style.display=(state)?"table":"none";
+            interface.scoreTable[1].style.display=(state)?"table":"none";
+            interface.piontsNo[0].innerHTML=date.score;
+            interface.piontsNo[1].innerHTML=timer.Minutes()+"min "+timer.Secounds()+"s";
+        },
+        ShowAnsers: function(){
+            this.animateChange();
+            setTimeout(function () {
+                this.replaceClass(interface.buttonElement, "questionDiv__button--next", "questionDiv__button--showAnsers");
+                this.questionStyle(true);
+                interface.buttonElement.innerHTML="<strong>></strong>";
+                interface.buttonElement.style.display="inline";
+                interface.buttonElementPrev.style.display="inline";
+                this.showScore(false);
+                interface.buttonElement.removeEventListener('click', this.ShowAnsersH);
+            }.bind(this), 300);
+        },
+        nextPrev: function(state){
+            (state)?date.CorrQNr++:date.CorrQNr--;
+            if ((date.CorrQNr < 9)&&(date.CorrQNr>=0)){
+                this.markAnswers("on");
+                this.ubdateText("<i>#"+date.QuestionNr[date.CorrQNr]+"</i>",date.Question[date.CorrQNr],date.Ansers[date.CorrQNr]);}
+            else if(date.CorrQNr<0){
+                date.CorrQNr++;}
+            else{
+                this.FinishEvent();
+                interface.buttonElement.style.display="none";
+		interface.buttonElementPrev.style.display="none";}
         },
         checkCorrectness: function () {
             if (date.Ansers[date.CorrQNr][this.index].correct)
                 date.score++;
         },
         animateChange: function () {
-            interface.divElement.style.transition = "transform 0.3s";
-            interface.divElement.style.transform = "scaleX(0)";
+            this.replaceClass(interface.divElement,"questionDiv--rotat90deg", "questionDiv--rotat180deg");
             setTimeout(function () {
-                interface.divElement.style.transform = "scaleX(1)";
+                this.replaceClass(interface.divElement, "questionDiv--rotat180deg", "questionDiv--rotat90deg");
             }.bind(this), 300);
         },
         ubdateText: function(hed, qes, ans){
@@ -98,18 +130,38 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         },
         markAnswers: function(state){
-            if(state==="on"){
-                for (i = 0; i < 4; i++) {//kolorowanie odpowiedzi z poprzedniego pytania
-                if (date.Ansers[date.CorrQNr][i].correct) 
-                    interface.singleAnserElements[i].style.backgroundColor = "green"; 
-                else 
-                    interface.singleAnserElements[i].style.backgroundColor = "red";
+            if(state==="on"){//kolorowanie odpowiedzi dobrych i zlych
+                for (i = 0; i < 4; i++) {
+                    console.log("date.CorrQNr "+date.CorrQNr);
+                    console.log("date.Ansers[date.CorrQNr][i] "+date.Ansers[date.CorrQNr][i]+" date.Ansers[date.CorrQNr] "+date.Ansers[date.CorrQNr][i]);
+                    if(date.Ansers[date.CorrQNr][i].correct){ 
+                        interface.singleAnserElements[i].style.backgroundColor = "green";} 
+                    else
+                        interface.singleAnserElements[i].style.backgroundColor = "red";
                 }
             }
             else{
                 for (i = 0; i < 4; i++) {
                     interface.singleAnserElements[i].style.backgroundColor = "";}//przywracanie koloru odpowiedza
             }
+        },
+        questionStyle: function(state){
+                interface.ansersElement.style.display = (state)? "table":"none";
+                interface.buttonElement.style.display = (state)? "none":"table";
+                this.replaceClass(interface.questionElement,(state)?"questionDiv__question--questions":"questionDiv__question--end",(state)?"questionDiv__question--end":"");
+                interface.headerElement.parentNode.style.textAlign = (state)? "left":"center";
+                interface.headerElement.parentNode.style.backgroundImage = (state)? "url('source/header_background_black.jpg')":"";
+                interface.headerElement.style.backgroundColor= (state)? "#ffffff":"";
+                interface.headerElement.style.color= (state)?"#434e66":"#ffffff";
+                interface.qMainElement.style.backgroundColor= (state)?"#ffffff":"";
+                if(!state){
+                    for(i=0 ; i<4 ; i++){
+                        this.replaceClass(interface.singleAnserElements[i], "","questionDiv__singleAnser--hover");}
+                }
+        },
+        replaceClass: function(elem, newClass, oldClass){
+            if(oldClass!=="")elem.classList.remove(oldClass);
+            if(newClass!=="")elem.classList.add(newClass);
         },
         bindEvents: function () {
             this.startFunctionEventH=this.startFunctionEvent.bind(this);
@@ -124,53 +176,12 @@ document.addEventListener("DOMContentLoaded", function () {
             interface.buttonElement.removeEventListener('click', this.startFunctionEventH);
             this.ShowAnsersH=this.ShowAnsers.bind(this);
             interface.buttonElement.addEventListener('click', this.ShowAnsersH);
+            interface.buttonElement.addEventListener('click', function(){this.nextPrev(true);}.bind(this));
+            interface.buttonElementPrev.addEventListener('click', function(){this.nextPrev(false);}.bind(this));
             for (i = 0; i < 4; i++) {
                 interface.singleAnserElements[i].removeEventListener('click', this.nextQuestionEventH);
                 interface.singleAnserElements[i].removeEventListener('click', this.checkCorrectness);}
         },
-        questionStyle: function(state, fsize){
-                interface.ansersElement.style.display = (state)? "table":"none";
-                interface.buttonElement.style.display = (state)? "none":"table";
-                this.replaceClass(interface.questionElement,(state)?"questionDiv__question--questions":"questionDiv__question--end",(state)?"":"questionDiv__question--questions");
-                interface.headerElement.parentNode.style.textAlign = (state)? "left":"center";
-                interface.headerElement.parentNode.style.backgroundImage = (state)? "url('source/header_background_black.jpg')":"";
-                interface.headerElement.style.backgroundColor= (state)? "#ffffff":"";
-                interface.headerElement.style.color= (state)?"#434e66":"#ffffff";
-                interface.qMainElement.style.backgroundColor= (state)?"#ffffff":"";
-        },
-        replaceClass: function(elem, newClass, oldClass){
-            if(oldClass!=="")elem.classList.remove(oldClass);
-            elem.classList.add(newClass);
-        },
-        showScore: function(state){
-            interface.scoreTable[0].style.display=(state)?"table":"none";
-            interface.scoreTable[1].style.display=(state)?"table":"none";
-            interface.piontsNo[0].innerHTML=date.score;
-            interface.piontsNo[1].innerHTML=timer.playerTime/1000+" s";
-        },
-        ShowAnsers: function(){
-            this.animateChange();
-            setTimeout(function () {
-                this.replaceClass(interface.buttonElement, "questionDiv__button--next", "questionDiv__button--showAnsers");
-                interface.buttonElement.innerHTML="<strong>></strong>";
-                this.questionStyle(true,0);
-                interface.buttonElement.style.display="table";
-                this.showScore(false);
-                date.CorrQNr=0;
-                this.markAnswers("on");
-                this.ubdateText("<i>#"+date.QuestionNr[date.CorrQNr]+"</i>",date.Question[date.CorrQNr],date.Ansers[date.CorrQNr]);
-                interface.buttonElement.removeEventListener('click', this.ShowAnsersH);
-                interface.buttonElement.addEventListener('click', this.next.bind(this));
-            }.bind(this), 300);
-        },
-        next: function(){
-            date.CorrQNr++;
-            this.markAnswers("on");
-            if (date.CorrQNr < 9) 
-                this.ubdateText("<i>#"+date.QuestionNr[date.CorrQNr]+"</i>",date.Question[date.CorrQNr],date.Ansers[date.CorrQNr]);
-            else 
-                this.FinishEvent();
-        }
     };
     var timer = {
         width: 0,
@@ -194,8 +205,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 interface.clockIcon.style.display = "block";
                 this.GeteWidth(interface.clockDiv);
                 interface.clockDiv.style.transition = "width "+this.time / 1000+"s , "+"background-color "+this.time / 1000+"s";
-                interface.clockDiv.style.width = "24px";
-                interface.clockDiv.style.backgroundColor= "#ff796b";
+                interface.clockDiv.style.webkitTransition="width "+this.time / 1000+"s , "+"background-color "+this.time / 1000+"s";
+                Game.replaceClass(interface.clockDiv,"clock__stripe--clockOn","");
             }.bind(this), 300);
             this.countDown = setTimeout(this.timeOut, this.time);
         },
@@ -213,10 +224,16 @@ document.addEventListener("DOMContentLoaded", function () {
             Game.animateChange();
             setTimeout(function () {
                 Game.questionStyle(false);
-                interface.headerElement.innerHTML = "KONIEC CZASU";
-                interface.questionElement.innerHTML = "SPRÓBUJ JESZCZE RAZ";
-                interface.ansersElement.style.display = "none";
+                interface.buttonElement.style.display="none";
+                Game.ubdateText("KONIEC CZASU","",0);
             }, 300);
+        },
+        Minutes: function(){
+            return Math.floor(this.playerTime/60000);;
+        },
+        Secounds: function(){
+            t=Math.floor(this.playerTime/1000);
+            return this.playerTime%60;
         }
     };
     date.loadJSON();
